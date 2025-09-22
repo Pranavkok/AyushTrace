@@ -56,7 +56,7 @@ export default function Leaderboard() {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
-  const getRankIcon = (rank) => {
+  const getRankIcon = (rank: number): string | null => {
     switch(rank) {
       case 1: return "🏆";
       case 2: return "🥈";
@@ -65,7 +65,7 @@ export default function Leaderboard() {
     }
   };
 
-  const getGlobalRank = (index) => (currentPage - 1) * itemsPerPage + index + 1;
+  const getGlobalRank = (index: number): number => (currentPage - 1) * itemsPerPage + index + 1;
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-100 to-green-200 p-6">
