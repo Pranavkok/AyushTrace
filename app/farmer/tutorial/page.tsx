@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from "react";
-import Link from "next/link";
 
 const herbs = [
   "Ashwagandha",
@@ -187,7 +186,7 @@ export default function Tutorials() {
 
         {filteredVideos.length === 0 && (
           <div className="text-center py-12">
-            <div className="text-green-600 text-lg">No videos found for "{search}"</div>
+            <div className="text-green-600 text-lg">No videos found for &ldquo;{search}&rdquo;</div>
             <p className="text-green-500 mt-2">Try adjusting your search or select a different herb</p>
           </div>
         )}
