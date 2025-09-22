@@ -1,8 +1,19 @@
 "use client";
 import React, { useState } from "react";
 
+type PublishForm = {
+  name: string;
+  photos: File | null;
+  wallet: string;
+  amount: string;
+  quantity: string;
+  season: string;
+  fertilizers: string;
+  duration: string;
+};
+
 export default function PublishHerb() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<PublishForm>({
     name: "",
     photos: null,
     wallet: "",
@@ -13,12 +24,13 @@ export default function PublishHerb() {
     duration: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setForm({ ...form, [name]: files ? files[0] : value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value, files } = target;
+    setForm({ ...form, [name]: files && files.length > 0 ? files[0] : value } as PublishForm);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form Submitted:", form);
     // integrate with backend / blockchain later
@@ -75,11 +87,12 @@ export default function PublishHerb() {
 
           {/* Photos */}
           <div>
-            <label className="block text-green-800 font-medium mb-2">
+            <label htmlFor="photos" className="block text-green-800 font-medium mb-2">
               Photos of the Herb
             </label>
             <input
               type="file"
+              id="photos"
               name="photos"
               accept="image/*"
               onChange={handleChange}
