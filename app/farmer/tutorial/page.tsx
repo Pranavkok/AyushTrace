@@ -15,25 +15,31 @@ const herbs = [
 ];
 
 // Helper function to extract YouTube video ID
-const getYouTubeVideoId = (url) => {
+const getYouTubeVideoId = (url: string): string | null => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
 };
 
 // Helper function to get YouTube thumbnail
-const getYouTubeThumbnail = (url) => {
+const getYouTubeThumbnail = (url: string): string | null => {
   const videoId = getYouTubeVideoId(url);
   return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : null;
 };
 
 // Helper function to convert YouTube URL to embed URL
-const getEmbedUrl = (url) => {
+const getEmbedUrl = (url: string): string => {
   const videoId = getYouTubeVideoId(url);
   return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
 };
 
-const sampleVideos = {
+type Video = { 
+  title: string; 
+  url: string; 
+  thumbnail: string; 
+};
+
+const sampleVideos: Record<"Ashwagandha" | "Brahmi" | "Ginger", Video[]> = {
   Ashwagandha: [
     { 
       title: "Ashwagandha Benefits", 
@@ -63,16 +69,16 @@ const sampleVideos = {
 };
 
 export default function Tutorials() {
-  const [selectedHerb, setSelectedHerb] = useState("Ashwagandha");
-  const [search, setSearch] = useState("");
-  const [playingVideo, setPlayingVideo] = useState(null);
+  const [selectedHerb, setSelectedHerb] = useState<keyof typeof sampleVideos>("Ashwagandha");
+  const [search, setSearch] = useState<string>("");
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   const videos = sampleVideos[selectedHerb] || [];
-  const filteredVideos = videos.filter((v) =>
+  const filteredVideos = videos.filter((v: Video) =>
     v.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleVideoClick = (videoIndex) => {
+  const handleVideoClick = (videoIndex: number) => {
     setPlayingVideo(videoIndex);
   };
 
@@ -100,7 +106,7 @@ export default function Tutorials() {
             <button
               key={herb}
               onClick={() => {
-                setSelectedHerb(herb);
+                setSelectedHerb(herb as keyof typeof sampleVideos);
                 setPlayingVideo(null); // Reset playing video when switching herbs
               }}
               className={`p-2 rounded-xl font-medium transition-all duration-200 ${
@@ -138,7 +144,7 @@ export default function Tutorials() {
 
         {/* Video Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredVideos.map((video, index) => (
+          {filteredVideos.map((video: Video, index: number) => (
             <div
               key={index}
               className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
@@ -157,11 +163,11 @@ export default function Tutorials() {
                     onClick={() => handleVideoClick(index)}
                   >
                     <img 
-                      src={video.thumbnail || getYouTubeThumbnail(video.url)} 
+                      src={video.thumbnail || getYouTubeThumbnail(video.url) || ""} 
                       alt={video.title}
                       className="w-full h-48 object-cover"
-                      onError={(e) => {
-                        e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDMyMCAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iMTkyIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNDQgODBMMTc2IDk2TDE0NCAxMTJWODBaIiBmaWxsPSIjNjI3RjYzIi8+Cjx0ZXh0IHg9IjE2MCIgeT0iMTI4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjI3RjYzIiBmb250LXNpemU9IjEyIj5WaWRlbyBOb3QgQXZhaWxhYmxlPC90ZXh0Pgo8L3N2Zz4K';
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDMyMCAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iMTkyIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNDQgODBMMTc2IDk2TDE0NCAxMTJWODBaIiBmaWxsPSIjNjI3RjYzIi8+Cjx0ZXh0IHg9IjE2MCIgeT0iMTI4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjI3RjYzIiBmb250LXNpemU9IjEyIj5WaWRlbyBOb3QgQXZhaWxhYmxlPC90ZXh0Pgo8L3N2Zz4K';
                       }}
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-50 transition-all duration-200">
@@ -197,22 +203,22 @@ export default function Tutorials() {
         <h2 className="text-xl font-bold mb-4 text-green-900">Recommended</h2>
         <div className="flex flex-col gap-3">
           {Object.keys(sampleVideos).flatMap((herb) =>
-            sampleVideos[herb].map((video, i) => (
+            (sampleVideos[herb as keyof typeof sampleVideos] as Video[]).map((video: Video, i: number) => (
               <div
                 key={herb + i}
                 className="flex gap-3 items-center bg-green-100 rounded-xl p-3 hover:bg-green-200 cursor-pointer transition-colors duration-200"
                 onClick={() => {
-                  setSelectedHerb(herb);
+                  setSelectedHerb(herb as keyof typeof sampleVideos);
                   setPlayingVideo(null);
                 }}
               >
                 <div className="w-20 h-12 rounded-lg overflow-hidden flex-shrink-0">
                   <img 
-                    src={video.thumbnail || getYouTubeThumbnail(video.url)}
+                    src={video.thumbnail || getYouTubeThumbnail(video.url) || ""}
                     alt={video.title}
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA4MCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMTZBMzRBIi8+CjxwYXRoIGQ9Ik0zMiAyMEw0NCAyNEwzMiAyOFYyMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=';
+                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                      e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA4MCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMTZBMzRBIi8+CjxwYXRoIGQ9Ik0zMiAyMEw0NCAyNEwzMiAyOFYyMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=';
                     }}
                   />
                 </div>
