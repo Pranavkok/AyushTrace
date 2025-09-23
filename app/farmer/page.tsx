@@ -142,9 +142,12 @@ export default function FarmerPage() {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <button className="flex-1 py-2 sm:py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-500 text-sm sm:text-base">
+          <Link
+              href="/farmer/track"
+              className="flex-1 py-2 sm:py-3 flex items-center justify-center bg-green-700 text-white rounded-lg shadow hover:bg-green-600 text-sm sm:text-base"
+            >
               Track
-            </button>
+            </Link>
             <Link
               href="/farmer/publish"
               className="flex-1 py-2 sm:py-3 flex items-center justify-center bg-green-700 text-white rounded-lg shadow hover:bg-green-600 text-sm sm:text-base"
