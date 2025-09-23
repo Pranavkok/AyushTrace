@@ -144,10 +144,10 @@ export default function LabTesterPage() {
               Track
             </Link>
             <Link
-              href="/labtester/publish"
+              href="/add-data"
               className="flex-1 py-2 sm:py-3 flex items-center justify-center bg-green-700 text-white rounded-lg shadow hover:bg-green-600 text-sm sm:text-base"
             >
-              Publish
+              Add Data
             </Link>
           </div>
         </section>
