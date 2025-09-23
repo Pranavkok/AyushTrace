@@ -88,7 +88,7 @@ export default function LandingPage() {
                 <Link href="/farmer" className="block w-full h-full">Farmer</Link>
               </button>
               <button className="px-4 py-3 sm:px-6 sm:py-3 bg-green-600/90 hover:bg-green-500 text-white rounded-full shadow-lg backdrop-blur-sm hover:shadow-xl hover:scale-105 transition-all duration-300 font-medium text-sm sm:text-base">
-                Lab Tester
+              <Link href="/labTester" className="block w-full h-full">Lab Tester</Link>
               </button>
               <button className="px-4 py-3 sm:px-6 sm:py-3 bg-green-600/90 hover:bg-green-500 text-white rounded-full shadow-lg backdrop-blur-sm hover:shadow-xl hover:scale-105 transition-all duration-300 font-medium text-sm sm:text-base">
                 Trader

@@ -46,7 +46,7 @@ export default function HerbDataPage({
               : "No contract address provided."}
           </p>
           <Link
-            href="/farmer"
+            href="/"
             className="inline-block bg-green-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded hover:bg-green-700 transition"
           >
             Go Back to Search
@@ -66,7 +66,7 @@ export default function HerbDataPage({
       {/* Back button */}
       <div className="mb-6">
         <Link
-          href="/farmer"
+          href="/"
           className="group flex items-center gap-2 bg-white/70 backdrop-blur-sm hover:bg-white/90 text-green-800 px-3 py-2 sm:px-4 sm:py-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-fit"
         >
           <svg

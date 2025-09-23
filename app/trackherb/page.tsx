@@ -57,7 +57,7 @@ export default function TrackHerbPage({ searchParams }: { searchParams: { addres
     <div className="min-h-screen bg-green-50 p-6 flex flex-col items-center">
       <div className="mb-6">
         <Link
-          href="/farmer"
+          href="/"
           className="group flex items-center gap-2 bg-white/70 backdrop-blur-sm hover:bg-white/90 text-green-800 px-3 py-2 sm:px-4 sm:py-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-fit"
         >
           <svg
