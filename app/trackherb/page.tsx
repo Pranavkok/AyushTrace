@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import Link from 'next/link';
 
 type Herb = {
   name: string;
@@ -54,6 +55,27 @@ export default function TrackHerbPage({ searchParams }: { searchParams: { addres
 
   return (
     <div className="min-h-screen bg-green-50 p-6 flex flex-col items-center">
+      <div className="mb-6">
+        <Link
+          href="/farmer"
+          className="group flex items-center gap-2 bg-white/70 backdrop-blur-sm hover:bg-white/90 text-green-800 px-3 py-2 sm:px-4 sm:py-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 w-fit"
+        >
+          <svg
+            className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:-translate-x-1 transition-transform duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+          <span className="font-medium text-sm sm:text-base">Back</span>
+        </Link>
+      </div>
       <h1 className="text-3xl font-bold text-green-800 mb-8">{herb.name} Tracking</h1>
 
       <div className="flex justify-between items-center w-full max-w-xl mb-6">
