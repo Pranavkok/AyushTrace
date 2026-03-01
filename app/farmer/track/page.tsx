@@ -35,9 +35,7 @@ export default function TrackHerbPage() {
           </svg>
           <span className="font-medium">Back</span>
         </button>
-        <button className="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg">
-          Connect Wallet
-        </button>
+        <span className="text-sm text-green-200">AyuTrace</span>
       </header>
 
       {/* Main Form */}
@@ -53,11 +51,11 @@ export default function TrackHerbPage() {
           {/* Address Input */}
           <div>
             <label className="block text-green-800 font-medium mb-2">
-              Contract Address
+              Herb ID
             </label>
             <input
               type="text"
-              placeholder="0xHerbAddress..."
+              placeholder="Paste the herb ID here..."
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               className="w-full p-3 border-2 border-green-400 rounded-lg focus:ring-2 focus:ring-green-600 outline-none"
@@ -73,10 +71,8 @@ export default function TrackHerbPage() {
             Track Herb
           </button>
 
-          {/* Testing Note */}
           <p className="mt-4 text-xs text-gray-600">
-            For testing, you can use dummy herb contract addresses: <br />
-            0xHerbAddress1, 0xHerbAddress2, 0xHerbAddress3, 0xHerbAddress4, 0xHerbAddress5
+            The herb ID is displayed after a farmer publishes a herb. Copy it from the farmer dashboard.
           </p>
         </form>
       </main>

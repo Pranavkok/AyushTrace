@@ -2,6 +2,21 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const herbAddress = searchParams.get("herbAddress");
+
+  const where = herbAddress ? { herbAddress } : {};
+
+  const records = await prisma.transferRecord.findMany({
+    where,
+    orderBy: { createdAt: "asc" },
+    include: { extraInfo: true },
+  });
+
+  return NextResponse.json({ ok: true, records });
+}
+
 export async function POST(req: Request) {
   const user = await getAuthUser();
   if (!user) {

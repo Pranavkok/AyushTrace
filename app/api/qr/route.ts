@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 
+export async function GET() {
+  const records = await prisma.qrRecord.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+  return NextResponse.json({ ok: true, records });
+}
+
 export async function POST(req: Request) {
   const user = await getAuthUser();
   if (!user) {

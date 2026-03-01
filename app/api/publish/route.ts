@@ -2,6 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 
+export async function GET() {
+  const records = await prisma.publishRecord.findMany({
+    orderBy: { createdAt: "desc" },
+    include: { user: { select: { name: true, email: true } } },
+  });
+  return NextResponse.json({ ok: true, records });
+}
+
 export async function POST(req: Request) {
   const user = await getAuthUser();
   if (!user) {
@@ -52,6 +60,7 @@ export async function POST(req: Request) {
       fertilizers: body.fertilizers,
       duration: body.duration,
       photoName: body.photoName,
+      userId: user.id,
     },
   });
 
