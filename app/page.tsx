@@ -32,7 +32,7 @@ export default function LandingPage() {
             {/* Desktop Actions */}
             <div className="hidden md:flex gap-4 items-center">
               <button className="hover:text-green-300 transition-all duration-200 hover:scale-110 transform text-xl">🔍</button>
-              <button className="hover:text-green-300 transition-all duration-200 hover:scale-110 transform text-xl">👤</button>
+              <Link href="/auth/login" className="hover:text-green-300 transition-all duration-200 hover:scale-110 transform text-xl">👤</Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -56,7 +56,7 @@ export default function LandingPage() {
               <a href="#contacts" className="block hover:text-green-300 transition-colors duration-200 py-2">Contacts</a>
               <div className="flex gap-4 pt-2">
                 <button className="hover:text-green-300 transition-all duration-200 text-xl">🔍</button>
-                <button className="hover:text-green-300 transition-all duration-200 text-xl">👤</button>
+                <Link href="/auth/login" className="hover:text-green-300 transition-all duration-200 text-xl">👤</Link>
               </div>
             </div>
           </div>

@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  role         String
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PublishRecord {
+  id          String   @id @default(cuid())
+  herbName    String
+  wallet      String
+  amount      Float
+  quantity    String
+  season      String
+  fertilizers String
+  duration    String
+  photoName   String?
+  createdAt   DateTime @default(now())
+}
+
+model TransferRecord {
+  id          String         @id @default(cuid())
+  herbAddress String
+  sendTo      String
+  createdAt   DateTime       @default(now())
+  extraInfo   TransferInfo[]
+}
+
+model TransferInfo {
+  id         String         @id @default(cuid())
+  title      String
+  data       String
+  transfer   TransferRecord @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  transferId String
+}
+
+model QrRecord {
+  id              String   @id @default(cuid())
+  batchId         String   @unique
+  herbName        String
+  contractAddress String
+  destination     String
+  qrText          String
+  createdAt       DateTime @default(now())
+}
